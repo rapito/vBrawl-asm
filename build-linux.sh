@@ -5,4 +5,3 @@ mkdir -p build
 cmake -B build/ -S . -DCMAKE_TOOLCHAIN_FILE=./CMake/PPCToolchain.cmake
 cmake --build build/ -- -j $(sysctl -n hw.logicalcpu)
 
-./sdcard-linux.sh
