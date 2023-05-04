@@ -13,8 +13,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: Set up devkitPro
-      uses: devkitPro/switchbrew-setup@v1
 
     - name: Install dependencies
       run: |
