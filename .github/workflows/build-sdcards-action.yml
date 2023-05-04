@@ -10,29 +10,10 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    container: devkitpro/devkitppc:latest
 
     steps:
-#    - uses: actions/checkout@v3
-
-    - name: Install dependencies
-      run: |
-        sudo apt-get update
-        sudo apt-get install build-essential python3-dev python3-pip python3-setuptools
-        sudo apt-get update
-#        sudo apt-get install devkitpro
-#        wget https://apt.devkitpro.org/install-devkitpro-pacman
-#        chmod +x ./install-devkitpro-pacman
-#        sudo ./install-devkitpro-pacman
-
-    - name: Install devkitPPC
-      run: |
-        wget https://apt.devkitpro.org/install-devkitpro-pacman
-        chmod +x ./install-devkitpro-pacman
-        yes | sudo ./install-devkitpro-pacman
-        sudo chmod +x ./install-devkitpro-pacman
-        sudo ./install-devkitpro-pacman
-        sudo dkp-pacman -Syu
-        sudo dkp-pacman -S devkitPPC libogc libfat
+    - uses: actions/checkout@v3
 
     - name: Verify installation
       run: |
