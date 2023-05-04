@@ -5,7 +5,7 @@
 
 #Ignore SD Cards
 *.raw
-*.DS_STORE
+*.DS_Store
 
 out/
 build/
