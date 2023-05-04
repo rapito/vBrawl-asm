@@ -1,3 +1,4 @@
+import os
 import subprocess
 from File import File
 
@@ -9,14 +10,14 @@ def cmdLineOutput(cmd):
 
 
 def makeBinUtilCommandFile(command: str) -> File:
-    BIN_UTILS_COMMAND_FILE_PATH = 'IntermediateFiles\\binUtilCommands.txt'
+    BIN_UTILS_COMMAND_FILE_PATH = 'IntermediateFiles/binUtilCommands.txt'
     commandFile = File(BIN_UTILS_COMMAND_FILE_PATH)
     commandFile.write(command)
     assert commandFile.exists()
     return commandFile
 
 def makeCustomLinkerScriptFile(script: str) -> File:
-    LINKER_SCRIPT_FILE_PATH = 'IntermediateFiles\\customLinker.ld'
+    LINKER_SCRIPT_FILE_PATH = 'IntermediateFiles/customLinker.ld'
     linkerScriptFile = File(LINKER_SCRIPT_FILE_PATH)
     linkerScriptFile.write(script)
     assert linkerScriptFile.exists()

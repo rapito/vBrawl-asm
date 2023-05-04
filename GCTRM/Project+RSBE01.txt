@@ -51,17 +51,6 @@ PULSE
 * E2000002 00000000
 
 #############################################################################
-!all your mem2 are belong to us [Glitch]
-#############################################################################
-* 08003118 08000000
-* 20010004 00000000
-* 04003120 97FE0000
-* 08003128 97FC0000
-* 20010008 00000000
-* 08003134 97FE0000
-* 20010004 00000000
-
-#############################################################################
 Reset multipac stage lock status between Classic & All-Star matches [wiiztec]
 #############################################################################
 HOOK @ $80044A34
@@ -116,6 +105,18 @@ HOOK @ $80946954
 Poke Balls use Normal Item Limit [standardtoaster]
 #################################################
 op NOP @ $809B0AC0
+
+##################################################
+Memory Extention for FighterXResource2 [Dantarion]
+##################################################
+int 0x91E80 @ $80421B54
+int 0x91E80 @ $80421B74
+int 0x91E80 @ $80421B94
+int 0x91E80 @ $80421BB4
+int 0x91E80 @ $80421E1C
+int 0x91E80 @ $80421E3C
+int 0x91E80 @ $80421EBC
+int 0x91E80 @ $80421EDC
 
 ##############################
 Stage Choice Random Fix [ds22]
@@ -1454,15 +1455,9 @@ Hitstun Modifier [Phantom Wings, spunit262]
 #* 04B87AA8 3ECCCCCD # Hitstun mult written by code menu, so disabled here
 
 ##########################################
-!Tripping Rate is 0 V2 [ds22, KirbyIsCool]
+Tripping Rate is 0 V2 [ds22, KirbyIsCool]
 ##########################################
 * 0489E910 FFE0F090
-
-##########################################
-Tripping Rate is 0 V3.1 [Kapedani]
-##########################################
-* op stfs f1, 0x04D0(r3) @ $8081bd54
-* op lfs f1, -0x4BBC(r31) @ $809a9a44
 
 ##################################################
 Triple Jump Glitch Fix [Phantom Wings, spunit262]
@@ -2543,7 +2538,7 @@ op fmr f0, f3 @ $8010c888
 
 .include Source/ProjectM/CSS.asm
 .include Source/ProjectM/SSS.asm
-.include Source/ProjectM/SSSButtons.asm
+.include Source/ProjectM/SSSbuttons.asm
 
 .include Source/LegacyTE/AltCostume.asm
 .include Source/LegacyTE/Masquerade.asm

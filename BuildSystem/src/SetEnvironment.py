@@ -1,6 +1,7 @@
 import os, re, glob, shutil
 
 def setEnvironment(buildDirectory, ppcBinDirectory=None):
+    # os.environ['PATH'] = re.sub(':', ':', os.environ['PATH'])
     os.chdir(buildDirectory)
     removeDevkitFromPath()
     if ppcBinDirectory is None:
@@ -11,15 +12,16 @@ def setEnvironment(buildDirectory, ppcBinDirectory=None):
     resetDir('Output')
     resetDir('IntermediateFiles/Renamed')
     resetDir('IntermediateFiles/Removed')
+    # print(os.environ['PATH'])
 
 
 def removeDevkitFromPath():
-    os.environ['PATH'] = re.sub('(;|^)[^;]*?devkitPro.*?(;|$)', ';', os.environ['PATH'])
-    os.environ['PATH'] = re.sub('(;|^)[^;]*?mingw.*?(;|$)', ';', os.environ['PATH'])
+    os.environ['PATH'] = re.sub('(:|^)[^:]*?devkitPro.*?(:|$)', ':', os.environ['PATH'])
+    os.environ['PATH'] = re.sub('(:|^)[^:]*?mingw.*?(:|$)', ':', os.environ['PATH'])
 
 
 def setDevkitPath(ppcBinDirectory):
-    os.environ['PATH'] += f";{ppcBinDirectory}"
+    os.environ['PATH'] += f":{ppcBinDirectory}"
 
 
 def resetDir(directory):

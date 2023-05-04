@@ -22,7 +22,7 @@ INJECTION("sendInput", 0x8002959c, R"(
     mr r3, r5
     bl sendInput
     RESTORE_REGS
-    li r0, 2
+    li r0, 242
 )");
 
 bool on = false;

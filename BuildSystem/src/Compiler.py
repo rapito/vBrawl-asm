@@ -3,9 +3,9 @@ from Library import File, Library
 from Section import Section
 from Common import cmdLineOutput, makeBinUtilCommandFile, makeCustomLinkerScriptFile
 from typing import List
-ppcCompiler = R'C:\Users\dareb\Documents\PPlusCpp\BuildSystem\Compiler\bin\powerpc-eabi-g++.exe'
-linkerScriptBase = R'C:\Users\dareb\Documents\PPlusCpp\BuildSystem\src\customLinkerScript.ld'
-binUtilCommandFilePath = 'IntermediateFiles\\binUtilCommands.txt'
+ppcCompiler = R'powerpc-eabi-g++'
+linkerScriptBase = R'../BuildSystem/src/customLinkerScript.ld'
+binUtilCommandFilePath = 'IntermediateFiles/binUtilCommands.txt'
 
 class Compiler:
     STANDARD_OPTIONS = [
@@ -42,7 +42,6 @@ class Compiler:
         if extraOptions is not None:
             options.extend(extraOptions)
         
-        
         with open(linkerScriptBase) as file:
             linkerScript = file.read()
             
@@ -57,7 +56,7 @@ class Compiler:
             compileCommand = f"{ppcCompiler} {cppFile.path} @{commandFile.path} {libraries} {libraries} {libraries} -o {outPath}"
             
         try:
-            print(">>> STARTING")
+            #print(">>> STARTING")
             output = cmdLineOutput(compileCommand)
             output = filterUselessWarnings(output)
             # print(output)
@@ -74,7 +73,7 @@ class Compiler:
             # print(f"??? ==\n{compileCommand}\n== ???")
             os.system(compileCommand)
         else:
-            print(">>> OUTPUT OK\n\n\n\n\n")
+            #print(">>> OUTPUT OK\n\n\n\n\n")
             return Library(outPath)
 
 

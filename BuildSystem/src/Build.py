@@ -9,7 +9,7 @@
 #                  256  CALL_FUNCTION_1       1  ''
 #                  258  STORE_FAST               'initSymbols'
 
-import sys, os, re
+import sys, os, re, shutil, subprocess
 from SetEnvironment import setEnvironment
 from LibraryDirectory import LibraryDirectory
 from Library import Library, InitialSectionNameLibrary, File, FinalSectionNameLibrary
@@ -20,8 +20,8 @@ from Symbol import Symbol
 from itertools import chain
 from BinUtils import objdump
 from math import ceil
-renamedCodesDir = 'IntermediateFiles\\Renamed'
-removedConstructorsDir = 'IntermediateFiles\\Removed'
+renamedCodesDir = 'IntermediateFiles/Renamed'
+removedConstructorsDir = 'IntermediateFiles/Removed'
 disassemblyDir = 'Disassembly'
 symbolMapFile: File = None
 settings: Settings = None
@@ -487,6 +487,34 @@ def makeInjectionsInfo(compiledCodes: Library):
     else:
         return data
 
+def buildSDCard():
+    outputfiles = [f for f in os.listdir('./Output') if os.path.isfile(os.path.join('./Output', f))]
+    subfolders = [ f for f in os.scandir('../SDCard') if f.is_dir() ]
+
+    for subfolder in subfolders:
+        codesFolder = os.path.abspath(subfolder.path + "/codes")
+        if not os.path.exists(codesFolder):
+            os.makedirs(codesFolder)
+        for outputfile in outputfiles:
+            shutil.copyfile(os.path.abspath("Output/" + outputfile), os.path.abspath(codesFolder + "/" + outputfile))
+
+        if sys.platform == "linux":
+            gctrm_exec = '../GCTRM/GCTRealMateLinux'
+        elif sys.platform == "darwin":
+            gctrm_exec = '../GCTRM/GCTRealMateMacOS'
+        elif sys.platform == "win32":
+            gctrm_exec = '../GCTRM/GCTRealMate.exe'
+        else:
+            raise Exception("No GCTRM executable for platform: " + sys.platform )
+
+        RSBE01_file = "../GCTRM/" + subfolder.name + "RSBE01.txt"
+        subprocess.run([gctrm_exec, "-q", RSBE01_file])
+        shutil.copyfile(os.path.abspath("../GCTRM/" + subfolder.name + "RSBE01.GCT"), os.path.abspath('../SDCard/' + subfolder.name + "/RSBE01.GCT"))
+
+        BOOST_file = "../GCTRM/" + subfolder.name + "BOOST.txt"
+        subprocess.run([gctrm_exec, "-q", BOOST_file])
+        shutil.copyfile(os.path.abspath("../GCTRM/" + subfolder.name + "BOOST.GCT"), os.path.abspath('../SDCard/' + subfolder.name + "/BOOST.GCT"))
+
 
 if __name__ == '__main__':
 
@@ -499,3 +527,4 @@ if __name__ == '__main__':
 
     sys.excepthook = show_exception_and_exit
     build(*sys.argv[1:])
+    buildSDCard()
