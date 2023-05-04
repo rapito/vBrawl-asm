@@ -1,4 +1,4 @@
-name: C/C++ CI
+name: Build Codes and SDCards
 
 on:
   push:
@@ -13,5 +13,16 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: Config and Build
+    - name: Set up devkitPro
+      uses: devkitPro/switchbrew-setup@v1
+
+    - name: Install devkitPPC
+      run: sudo dkp-pacman -Syu --noconfirm devkitPPC libogc
+
+    - name: Verify installation
+      run: |
+        echo 'int main(){}' > main.c
+        powerpc-eabi-gcc -mcpu=750 -mhard-float main.c -o main.elf
+
+    - name: Config and Build Codes
       run: sh ./build-linux.sh
