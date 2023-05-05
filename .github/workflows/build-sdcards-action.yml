@@ -16,7 +16,9 @@ jobs:
     - uses: actions/checkout@v3
 
     - name: Config and Build Codes
-      run: ./build-linux.sh
+      run: |
+        ./build-linux.sh
+        sudo ./sdcard-linux.sh
 
     - name: Upload SDCards
       uses: actions/upload-artifact@v2
