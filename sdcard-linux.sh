@@ -31,17 +31,18 @@ for sd_card_path in "${SD_CARDS[@]}"; do
   fi
 
   # Mount the SD card image.
-    echo "Mounting SD card: $sd_card_path.raw"
-    mkdir -p "$MOUNT_DRIVE"
-    sudo mount -o loop "$sd_card_path.raw" "$MOUNT_DRIVE"
+  echo "Mounting SD card: $sd_card_path.raw"
+  mkdir -p "$MOUNT_DRIVE"
+  sudo mount -o loop "$sd_card_path.raw" "$MOUNT_DRIVE"
 
-    # Copy the contents of the specified folder to the SD card.
-    echo "Copying files to SDCard: $SD_CARD_FOLDER => $MOUNT_DRIVE"
-    cp -R "$SD_CARD_FOLDER/." "$MOUNT_DRIVE"
+  # Copy the contents of the specified folder to the SD card.
+  echo "Copying files to SDCard: $SD_CARD_FOLDER => $MOUNT_DRIVE"
+  cp -R "$SD_CARD_FOLDER/." "$MOUNT_DRIVE"
 
-    # Unmount the SD card image.
-    echo "Unmounting SD card: $MOUNT_DRIVE"
-    sudo umount "$MOUNT_DRIVE"
+  # Unmount the SD card image.
+  echo "Unmounting SD card: $MOUNT_DRIVE"
+  sudo umount "$MOUNT_DRIVE"
+
 done
 
 # Restore the current directory.
