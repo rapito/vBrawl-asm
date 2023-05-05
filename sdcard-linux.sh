@@ -15,7 +15,7 @@ SD_CARD2_PATH="./sdcard2.raw"
 SD_CARD_FOLDER="./SDCard"
 
 # Define the size of the SD card image.
-SD_CARD_SIZE=$(( 3 * 1024 * 1024 * 1024 ))
+SD_CARD_SIZE=64M
 
 # Define an array of the SD card paths.
 SD_CARDS=("$SD_CARD1_PATH" "$SD_CARD2_PATH")
@@ -26,8 +26,7 @@ for sd_card_path in "${SD_CARDS[@]}"; do
     echo "Mounting existing SD card: $sd_card_path"
   else
     echo "Creating new SD card: $sd_card_path"
-    sudo dd if=/dev/zero of="$sd_card_path" bs=1M count="3g"
-#    dd if=/dev/zero of="$sd_card_path" bs=1 count=0 seek="$SD_CARD_SIZE"
+    sudo dd if=/dev/zero of="$sd_card_path" bs=1 count=0 seek=64M
     sudo mkfs.fat -F 32 "$sd_card_path"
   fi
 
