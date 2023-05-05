@@ -26,15 +26,15 @@ for sd_card_path in "${SD_CARDS[@]}"; do
     echo "Mounting existing SD card: $sd_card_path"
   else
     echo "Creating new SD card: $sd_card_path"
-#    dd if=/dev/zero of="$sd_card_path" bs=1M count="$SD_CARD_SIZE"
-    dd if=/dev/zero of="$sd_card_path" bs=1 count=0 seek="$SD_CARD_SIZE"
-    mkfs.fat -F 32 "$sd_card_path"
+    sudo dd if=/dev/zero of="$sd_card_path" bs=1M count="$SD_CARD_SIZE"
+#    dd if=/dev/zero of="$sd_card_path" bs=1 count=0 seek="$SD_CARD_SIZE"
+    sudo mkfs.fat -F 32 "$sd_card_path"
   fi
 
   # Mount the SD card image.
   echo "Mounting SD card: $sd_card_path"
   mkdir -p "$MOUNT_DRIVE"
-  mount -o loop "$sd_card_path" "$MOUNT_DRIVE"
+  sudo mount -o loop "$sd_card_path" "$MOUNT_DRIVE"
 
   # Copy the contents of the specified folder to the SD card.
   echo "Copying files to SDCard: $SD_CARD_FOLDER => $MOUNT_DRIVE"
@@ -42,7 +42,7 @@ for sd_card_path in "${SD_CARDS[@]}"; do
 
   # Unmount the SD card image.
   echo "Unmounting SD card: $MOUNT_DRIVE"
-  umount "$MOUNT_DRIVE"
+  sudo umount "$MOUNT_DRIVE"
 
   gzip "$sd_card_path"
 done
