@@ -17,7 +17,7 @@ jobs:
 
     - name: Config and Build Codes
       run: |
-        sudo bash ./build-linux.sh
+        sudo sh ./build-linux.sh
         sudo bash ./sdcard-linux.sh
 
     - name: Upload SDCards
