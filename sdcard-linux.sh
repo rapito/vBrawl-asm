@@ -7,7 +7,7 @@ CURRENT_DIR="$(pwd)"
 cd "$(dirname "$0")"
 
 VOLUME_NAME="BrawlbackSDCard"
-MOUNT_DRIVE="/media/$USER/$VOLUME_NAME"
+MOUNT_DRIVE="/mnt/$VOLUME_NAME"
 SD_CARD1_PATH="./sdcard1"
 SD_CARD2_PATH="./sdcard2"
 
@@ -26,18 +26,19 @@ for sd_card_path in "${SD_CARDS[@]}"; do
     echo "Mounting existing SD card: $sd_card_path"
   else
     echo "Creating new SD card: $sd_card_path"
-    dd if=/dev/zero of="$sd_card_path.raw" bs=1M count="$SD_CARD_SIZE"
-    mkfs.fat -n "$VOLUME_NAME" -F 32 "$sd_card_path.raw"
+#    sudo dd if=/dev/zero of="$sd_card_path.raw" bs=1M count="$SD_CARD_SIZE"
+    sudo dd if=/dev/zero of="$sd_card_path.raw" bs=1 count=0 seek="$SD_CARD_SIZE"
+    sudo mkfs.fat -n "$VOLUME_NAME" -F32 "$sd_card_path.raw"
   fi
 
   # Mount the SD card image.
   echo "Mounting SD card: $sd_card_path.raw"
-  mkdir -p "$MOUNT_DRIVE"
+  sudo mkdir -p "$MOUNT_DRIVE"
   sudo mount -o loop "$sd_card_path.raw" "$MOUNT_DRIVE"
 
   # Copy the contents of the specified folder to the SD card.
   echo "Copying files to SDCard: $SD_CARD_FOLDER => $MOUNT_DRIVE"
-  cp -R "$SD_CARD_FOLDER/." "$MOUNT_DRIVE"
+  sudo cp -R "$SD_CARD_FOLDER/*" "$MOUNT_DRIVE"
 
   # Unmount the SD card image.
   echo "Unmounting SD card: $MOUNT_DRIVE"

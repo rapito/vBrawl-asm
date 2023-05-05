@@ -13,7 +13,7 @@ jobs:
     container: devkitpro/devkitppc:latest
 
     steps:
-    - uses: actions/checkout@v3
+#    - uses: actions/checkout@v3
 
     - name: Install dependencies
       run: |
@@ -22,7 +22,7 @@ jobs:
 
     - name: Config and Build Codes
       run: |
-        sh ./build-linux.sh
+#        sh ./build-linux.sh
         sudo bash ./sdcard-linux.sh
 
     - name: Upload SDCards
