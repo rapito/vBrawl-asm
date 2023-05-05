@@ -7,7 +7,7 @@ CURRENT_DIR="$(pwd)"
 cd "$(dirname "$0")"
 
 VOLUME_NAME="BrawlbackSDCard"
-MOUNT_DRIVE="/mnt/$VOLUME_NAME"
+MOUNT_DRIVE="/media/$USER/$VOLUME_NAME"
 SD_CARD1_PATH="./sdcard1.raw"
 SD_CARD2_PATH="./sdcard2.raw"
 
