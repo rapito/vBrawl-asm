@@ -25,6 +25,10 @@ jobs:
         sh ./build-linux.sh
         sudo bash ./sdcard-linux.sh
 
+    - name: Create SD Cards
+      run: |
+        sudo bash ./sdcard-linux.sh
+
     - name: Upload SDCards
       uses: actions/upload-artifact@v2
       with:
