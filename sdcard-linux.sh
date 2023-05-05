@@ -15,7 +15,7 @@ SD_CARD2_PATH="./sdcard2.raw"
 SD_CARD_FOLDER="./SDCard"
 
 # Define the size of the SD card image.
-SD_CARD_SIZE="3g"
+SD_CARD_SIZE=$(( 3 * 1024 * 1024 * 1024 ))
 
 # Define an array of the SD card paths.
 SD_CARDS=("$SD_CARD1_PATH" "$SD_CARD2_PATH")
