@@ -25,14 +25,17 @@ jobs:
       run: |
         sh ./build-linux.sh
 
-    - name: Create SD Cards
+#    - name: Create SD Cards
+#      run: |
+#        sudo bash ./sdcard-linux.sh
+
+    - name: Pack SD Cards
       run: |
-        sudo bash ./sdcard-linux.sh
+        sudo zip -r sdcard.zip ./SDCARD
 
     - name: Upload SDCards
       uses: actions/upload-artifact@v2
       with:
         name: SDCard
         path: |
-          ./sdcard1.raw
-          ./sdcard2.raw
+          ./sdcard.zip
