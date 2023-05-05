@@ -31,7 +31,7 @@ jobs:
 
     - name: Pack SD Cards
       run: |
-        sudo zip -r sdcard.zip ./SDCARD
+        sudo zip -r sdcard.zip ./SDCard/
 
     - name: Upload SDCards
       uses: actions/upload-artifact@v2
