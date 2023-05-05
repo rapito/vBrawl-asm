@@ -23,7 +23,6 @@ jobs:
     - name: Config and Build Codes
       run: |
         sh ./build-linux.sh
-        sudo bash ./sdcard-linux.sh
 
     - name: Create SD Cards
       run: |
