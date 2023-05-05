@@ -4,10 +4,38 @@ on:
   push:
     branches: [ "*" ]
   pull_request:
+
     branches: [ "*" ]
 
 jobs:
-  build:
+  macos-build:
+    build:
+      runs-on: macos-latest
+      steps:
+        - uses: actions/checkout@v3
+
+        - name: Install dependencies
+          run: |
+            xcode-select --install
+            sudo installer -pkg devkitpro-pacman-installer.pkg -target /
+
+        - name: Config and Build Codes
+          run: |
+            sh ./build-macos.sh
+
+        - name: Create SD Cards
+          run: |
+            sudo bash ./sdcard-macos.sh
+
+        - name: Upload SDCards
+          uses: actions/upload-artifact@v2
+          with:
+            name: SDCard
+            path: |
+              ./sdcard1.raw
+              ./sdcard2.raw
+
+  linux-build:
 
     runs-on: ubuntu-latest
     container: devkitpro/devkitppc:latest
