@@ -26,7 +26,7 @@ for sd_card_path in "${SD_CARDS[@]}"; do
     echo "Mounting existing SD card: $sd_card_path"
   else
     echo "Creating new SD card: $sd_card_path"
-    sudo dd if=/dev/zero of="$sd_card_path" bs=1M count="$SD_CARD_SIZE"
+    sudo dd if=/dev/zero of="$sd_card_path" bs=1M count="3g"
 #    dd if=/dev/zero of="$sd_card_path" bs=1 count=0 seek="$SD_CARD_SIZE"
     sudo mkfs.fat -F 32 "$sd_card_path"
   fi
