@@ -22,7 +22,7 @@ SD_CARDS=("$SD_CARD1_PATH" "$SD_CARD2_PATH")
 
 for sd_card_path in "${SD_CARDS[@]}"; do
   # Check if the SD card image already exists.
-  if [ -f "$sd_card_path.raw" ]; then
+  if [ -f "$sd_card_path" ]; then
     echo "Mounting existing SD card: $sd_card_path"
   else
     echo "Creating new SD card: $sd_card_path"
@@ -32,7 +32,7 @@ for sd_card_path in "${SD_CARDS[@]}"; do
 
   # Mount the SD card image.
   echo "Mounting SD card: $sd_card_path"
-  mkdir -p "$MOUNT_DRIVE"
+  sudo mkdir -p "$MOUNT_DRIVE"
   sudo mount -o loop "$sd_card_path" "$MOUNT_DRIVE"
 
   # Copy the contents of the specified folder to the SD card.
@@ -43,7 +43,7 @@ for sd_card_path in "${SD_CARDS[@]}"; do
   echo "Unmounting SD card: $MOUNT_DRIVE"
   sudo umount "$MOUNT_DRIVE"
 
-  gzip "$sd_card_path"
+  sudo gzip "$sd_card_path"
 done
 
 # Restore the current directory.
